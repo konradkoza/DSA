@@ -412,7 +412,7 @@ public class AppController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!(newValue.matches("^[A-Fa-f0-9]+$") || newValue.equals(""))){
-                    keyQText.setText(oldValue);
+                    keyGText.setText(oldValue);
                 }
             }
         });
@@ -421,7 +421,7 @@ public class AppController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!(newValue.matches("^[A-Fa-f0-9]+$") || newValue.equals(""))){
-                    keyQText.setText(oldValue);
+                    keyYText.setText(oldValue);
                 }
             }
         });
@@ -429,7 +429,7 @@ public class AppController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!(newValue.matches("^[A-Fa-f0-9]+$") || newValue.equals(""))){
-                    keyQText.setText(oldValue);
+                    keyXText.setText(oldValue);
                 }
             }
         });
@@ -437,7 +437,7 @@ public class AppController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!(newValue.matches("^[A-Fa-f0-9]+$") || newValue.equals(""))){
-                    keyQText.setText(oldValue);
+                    keyPText.setText(oldValue);
                 }
             }
         });
