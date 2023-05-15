@@ -27,12 +27,6 @@ public class AppController implements Initializable {
     private final FileChooser fileChooser = new FileChooser();
 
     @FXML
-    private TextField fileNameKeyRead;
-
-    @FXML
-    private TextField fileNameKeySave;
-
-    @FXML
     private TextField fileNameSignatureText;
 
     @FXML
@@ -66,7 +60,10 @@ public class AppController implements Initializable {
     private TextField keyYText;
 
     @FXML
-    private Button readKeyFromFileButton;
+    private Button readPrivateKeyFromFileButton;
+
+    @FXML
+    private Button readPublicKeyFromFileButton;
 
     @FXML
     private Button readSignatureTextFileButton;
@@ -124,22 +121,31 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    void onActionReadKeyFromFile(ActionEvent event) {
+    void onActionReadPrivateKeyFromFile(ActionEvent event) {
         try {
             fileChooser.getExtensionFilters().setAll(
                     new FileChooser.ExtensionFilter("ALL FILES", "*.*"));
             fileChooser.setTitle("Wybierz klucz prywatny");
             File file = fileChooser.showOpenDialog(null);
             if (file != null) {
-                fileNameKeyRead.setText(file.getAbsolutePath());
+
                 try {
                     keyXText.setText(new String(Helper.readFile(file.getAbsolutePath())));
                 } catch (FileException e) {
                     AlertWindow.messageWindow("Błąd pliku", "Błąd podczas wczytywania pliku", Alert.AlertType.WARNING);
                 }
             }
+
+        } catch(NumberFormatException  e){
+            AlertWindow.messageWindow("Błąd klucza", "Błąd przy wczytywaniu klucza", Alert.AlertType.WARNING);
+        }
+    }
+
+    @FXML
+    void onActionReadPublicKeyFromFile(ActionEvent event) {
+        try {
             fileChooser.setTitle("Wybierz dane publiczne");
-            file = fileChooser.showOpenDialog(null);
+            File file = fileChooser.showOpenDialog(null);
             if (file != null) {
                 String tab[] = new String[0];
                 try {
@@ -155,13 +161,13 @@ public class AppController implements Initializable {
                 dsa.setQ(new BigInteger(keyQText.getText(), 16));
                 dsa.setG(new BigInteger(keyGText.getText(), 16));
                 dsa.setY(new BigInteger(keyYText.getText(), 16));
-                dsa.setX(new BigInteger(keyXText.getText(), 16));
                 dsa.setP(new BigInteger(keyPText.getText(), 16));
             }
         } catch(NumberFormatException  e){
             AlertWindow.messageWindow("Błąd klucza", "Błąd przy wczytywaniu klucza", Alert.AlertType.WARNING);
         }
     }
+
 
     @FXML
     void onActionReadSignatureTextFileButton(ActionEvent event) {
@@ -210,11 +216,11 @@ public class AppController implements Initializable {
             File file = fileChooser.showSaveDialog(null);
             if(file != null) {
 
-                fileNameKeySave.setText(file.getAbsolutePath());
+
                 try {
                     Helper.saveFile(keyXText.getText().getBytes(), file.getAbsolutePath());
                 }catch(Exception e) {
-                    AlertWindow.messageWindow("Błąd pliku", "Błąd podczas zapisywania pliku", Alert.AlertType.WARNING);
+                    AlertWindow.messageWindow("Błąd pliku", "Błąd podczas zapisywania klucza prywatnego do pliku", Alert.AlertType.WARNING);
                 }
             }
 
@@ -224,12 +230,12 @@ public class AppController implements Initializable {
             file = fileChooser.showSaveDialog(null);
             if(file != null)
             {
-                fileNameKeySave.setText(file.getAbsolutePath());
+
                 try
                 { String spom=keyQText.getText()+'\n'+keyGText.getText()+'\n'+keyYText.getText()+'\n'+keyPText.getText();
                     Helper.saveFile(spom.getBytes(), file.getAbsolutePath());
                 }catch(Exception e){
-                    AlertWindow.messageWindow("Błąd zapisu", "Błąd przy zapisywaniu klucza", Alert.AlertType.WARNING);
+                    AlertWindow.messageWindow("Błąd zapisu", "Błąd przy zapisywaniu danych publicznych do pliku", Alert.AlertType.WARNING);
                 }
             }
         } catch(NumberFormatException  e1){
@@ -338,7 +344,7 @@ public class AppController implements Initializable {
         try{
 
             if(fileRadioBox.isSelected()) {
-                if(message != null && signature != null && dsa.keysWereGenerated()) {
+                if(message != null && signature != null && dsa.keysForVerificationAvailable()) {
 
                     if (dsa.verify(message, signature)) {
                         AlertWindow.messageWindow("Podpis jest zgodny.", "Weryfikacja się powiodła", Alert.AlertType.INFORMATION);
@@ -350,7 +356,7 @@ public class AppController implements Initializable {
                 }
             }
             else {
-                if(!textToSign.getText().isEmpty() && !textSignature.getText().isEmpty() && dsa.keysWereGenerated()) {
+                if(!textToSign.getText().isEmpty() && !textSignature.getText().isEmpty() && dsa.keysForVerificationAvailable()) {
                     String[] sign = textSignature.getText().split("\n");
                     BigInteger[] signBigInt = new BigInteger[2];
                     signBigInt[0] = new BigInteger(1, Helper.hexToBytes(sign[0]));

@@ -27,7 +27,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Button fx:id="generateKeyButton" layoutX="512.0" layoutY="432.0" mnemonicParsing="false" onAction="#onActionGenerateKey" text="Generuj losowy klucz" />
+            <Button fx:id="generateKeyButton" layoutX="538.0" layoutY="389.0" mnemonicParsing="false" onAction="#onActionGenerateKey" text="Generuj losowy klucz" />
             <TextField fx:id="fileNameText" editable="false" layoutX="2.0" layoutY="312.0" prefHeight="26.0" prefWidth="240.0" promptText="scieżka pliku do wczytania" />
             <TextField fx:id="fileNameSignatureText" editable="false" layoutX="503.0" layoutY="312.0" prefHeight="26.0" prefWidth="240.0" promptText="ścieżka pliku z szyfrogramem do wczytania" />
             <Button fx:id="readTextFileButton" layoutX="242.0" layoutY="312.0" mnemonicParsing="false" onAction="#onActionReadTextFileButton" text="wczytaj plik" />
@@ -36,10 +36,8 @@
             <TextField fx:id="fileNameToSaveSignatureText" editable="false" layoutX="503.0" layoutY="352.0" prefHeight="26.0" prefWidth="240.0" promptText="scieżka do zapisania pliku" />
             <Button fx:id="saveTextToFIleButton" layoutX="243.0" layoutY="352.0" mnemonicParsing="false" onAction="#onActionSaveTextFile" text="zapisz plik" />
             <Button fx:id="saveSignatureTextToFIleButton" layoutX="432.0" layoutY="352.0" mnemonicParsing="false" onAction="#onActionSaveSignatureText" text="zapisz plik" />
-            <Button fx:id="readKeyFromFileButton" layoutX="438.0" layoutY="467.0" mnemonicParsing="false" onAction="#onActionReadKeyFromFile" text="Wczytaj klucz z pliku" />
-            <Button fx:id="saveKeyToFileButton" layoutX="437.0" layoutY="502.0" mnemonicParsing="false" onAction="#onActionSaveKeyToFile" text="Zapisz klucz do pliku" />
-            <TextField fx:id="fileNameKeySave" editable="false" layoutX="576.0" layoutY="502.0" prefHeight="26.0" prefWidth="185.0" promptText="ścieżka pliku do zapisania klucza" />
-            <TextField fx:id="fileNameKeyRead" editable="false" layoutX="576.0" layoutY="466.0" prefHeight="26.0" prefWidth="186.0" promptText="ścieżka pliku do wczytania klucza" />
+            <Button fx:id="readPublicKeyFromFileButton" layoutX="437.0" layoutY="427.0" mnemonicParsing="false" onAction="#onActionReadPublicKeyFromFile" text="Wczytaj klucz publiczny z pliku" />
+            <Button fx:id="saveKeyToFileButton" layoutX="437.0" layoutY="502.0" mnemonicParsing="false" onAction="#onActionSaveKeyToFile" text="Zapisz klucze do pliku" />
             <RadioButton fx:id="fileRadioBox" layoutX="332.0" layoutY="112.0" mnemonicParsing="false" onAction="#handleRadioBoxFile" selected="true" text="plik" />
             <RadioButton fx:id="textRadioBox" layoutX="332.0" layoutY="139.0" mnemonicParsing="false" onAction="#handleRadioBoxText" text="pole tekstowe" />
             <TextField fx:id="keyPText" layoutX="94.0" layoutY="440.0" prefHeight="26.0" prefWidth="320.0" />
@@ -52,6 +50,7 @@
             <TextField fx:id="keyYText" layoutX="95.0" layoutY="560.0" prefHeight="26.0" prefWidth="665.0" />
             <TextField fx:id="keyXText" layoutX="95.0" layoutY="596.0" prefHeight="26.0" prefWidth="666.0" />
             <TextField fx:id="keyGText" layoutX="94.0" layoutY="513.0" prefHeight="26.0" prefWidth="320.0" />
+            <Button fx:id="readPublicKeyFromFileButton" layoutX="438.0" layoutY="462.0" mnemonicParsing="false" onAction="#onActionReadPrivateKeyFromFile" text="Wczytaj klucz prywatny z pliku" />
          </children>
       </AnchorPane>
    </children>

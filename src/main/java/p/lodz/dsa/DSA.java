@@ -20,6 +20,10 @@ public class DSA {
         return (p != null && q != null && g != null && x != null && y != null);
     }
 
+    public boolean keysForVerificationAvailable(){
+        return (p != null && q != null && g != null && y != null);
+    }
+
     public void generateKey() {
 
         keySize = (random.nextInt(8) + 9) * 64; // wielokrotnosc 64 pomiedzy 576 i 1024 bitow wlacznie
