@@ -38,7 +38,7 @@ public class DSA {
         {
             temp1 = BigInteger.probablePrime(keySize, random);
             temp2 = temp1.subtract(BigInteger.ONE);
-            temp1 = temp1.subtract(temp2.remainder(q));
+            temp1 = temp1.subtract(temp2.remainder(q)); // p = t1 - ((t1-1) % q) => (q | p-1)
         } while (!temp1.isProbablePrime(2));
 
         return temp1;
@@ -48,21 +48,21 @@ public class DSA {
         BigInteger pMinusOne = p.subtract(BigInteger.ONE);
         BigInteger h;
         do {
-            h = new BigInteger(q.bitLength(), random);
-        } while (!(h.compareTo(BigInteger.ONE) >= 0 || h.compareTo(pMinusOne) <= 0));
-        return h.modPow(pMinusOne.divide(q), p);
+            h = new BigInteger(q.bitLength(), random); // h rzędu q
+        } while (!(h.compareTo(BigInteger.ONE) >= 0 || h.compareTo(pMinusOne) <= 0)); // 0 < h < p - 1
+        return h.modPow(pMinusOne.divide(q), p); // h ^[(p-1)/q] mod p
     }
 
     private BigInteger generatePrivateKey(BigInteger q) {
         BigInteger x = new BigInteger(q.bitLength(), random);
-        while (x.compareTo(q) >= 0) { // make sure x is between 1 and q-1
+        while (x.compareTo(q) < 0) { //  x < q
             x = new BigInteger(q.bitLength(), random);
         }
         return x;
     }
 
     private BigInteger computePublicKey(BigInteger g, BigInteger x, BigInteger p) {
-        BigInteger y = g.modPow(x, p); // compute y = g^x mod p
+        BigInteger y = g.modPow(x, p); // y = g^x mod p
         return y;
     }
 
