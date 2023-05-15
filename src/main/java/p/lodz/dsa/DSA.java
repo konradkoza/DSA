@@ -22,7 +22,7 @@ public class DSA {
 
     public void generateKey() {
 
-        keySize = (random.nextInt(8) + 9) * 64; // generate key size as a multiple of 64 between 576 and 1024 bits, inclusive
+        keySize = (random.nextInt(8) + 9) * 64; // wielokrotnosc 64 pomiedzy 576 i 1024 bitow wlacznie
         q = BigInteger.probablePrime(160, random);
         p = generateP(q);
 
