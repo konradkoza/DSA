@@ -39,3 +39,4 @@ build/
 .idea/
 .mvn/
 mvnw*
+/src/test/
